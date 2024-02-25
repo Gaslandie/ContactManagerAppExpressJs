@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const contactRoutes = require('./routes/contactRoutes');
+const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 const connectDB = require('./config/dbConnection');
 
@@ -12,6 +13,7 @@ app.use(express.json())
 
 //routes
 app.use('/api/contacts',contactRoutes);
+app.use('/api/users',userRoutes);
 
 //global error handler
 app.use(errorHandler);
