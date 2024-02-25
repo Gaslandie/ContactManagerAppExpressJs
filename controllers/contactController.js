@@ -5,21 +5,19 @@
 //  chaque fois. express-async-handler simplifie ce processus en encapsulant automatiquement les routes asynchrones dans une fonction 
 // qui gère les erreurs. Ainsi, tu peux écrire des routes asynchrones de manière plus concise.
 const asyncHandler = require('express-async-handler');
+const contact = require('../models/contactModel');
 //desc Get contacts
 //@route Get /api/contacts
 //@access public
 getContacts =asyncHandler(async(req,res) => {
-    try {
-        res.status(200).json({mess:"there are your contact"});
-    } catch (error) {
-        res.send(500).json({mess: error.message});
-    } 
+    const contacts = await contact.find({});
+    res.status(200).json(contacts);
 });
 
 //desc Get a contact by id
 //@route Get /api/contacts/:id
 //@access public
-getContact = asyncHandlerasync((req,res) => {
+getContact = asyncHandler((req,res) => {
     try {
         const {id} = req.params;
         res.status(200).json({mess:`there is your contact with id:${id}`});
@@ -32,13 +30,13 @@ getContact = asyncHandlerasync((req,res) => {
 //@route Post /api/contacts
 //@access public
 createContact = asyncHandler(async(req,res) => {
-
-        const {name,email,phone} = req.body;
-        if(!name || !email || !phone){
-            throw new Error("all fields are mandatory");
-        }
-        console.log(req.body);
-        res.status(201).json({mess:"product created"});
+    const {name,email,phone} = req.body;
+    if(!name || !email || !phone){
+        res.status(400);
+        throw new Error("all fields are mandatory");
+    }
+    const contact = await contact.create({name,email,phone});
+    res.status(201).json(contact);
 });
 
 //desc Uptdate contact

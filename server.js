@@ -2,7 +2,9 @@ const express = require('express');
 require('dotenv').config();
 const contactRoutes = require('./routes/contactRoutes');
 const errorHandler = require('./middlewares/errorHandler');
+const connectDB = require('./config/dbConnection');
 
+connectDB();
 const app = express();
 
 //middlewares
