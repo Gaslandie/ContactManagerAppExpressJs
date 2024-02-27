@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
         validate:{
             validator:function(val){
                 //at least one letter,capital and not, one number and one special character
-                return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*$/.test(v);
+                return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*$/.test(val);
             },
             message:'Password must contain at least one letter and one number'
         }
