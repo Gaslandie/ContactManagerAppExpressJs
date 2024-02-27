@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
+const { required } = require('nodemon/lib/config');
 
 const userSchema = mongoose.Schema({
+    user_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'User'
+    },
     username:{
         type:String,
         required:[true,'Please provide a name']
