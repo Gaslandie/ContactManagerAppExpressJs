@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 //desc Register user 
 //@route Post /api/users/register
-//@access private
+//@access public
 
 const registerUser = asyncHandler(async(req,res) => {
    
@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async(req,res) => {
 
 //desc login user 
 //@route Post /api/users/login
-//@access private
+//@access public
 
 const loginUser = asyncHandler(async(req,res) => {
    const {email,password} = req.body;
@@ -60,7 +60,7 @@ const loginUser = asyncHandler(async(req,res) => {
             email:user.email,
             id:user._id,
         },
-    },process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1m'});
+    },process.env.ACCESS_TOKEN_SECRET,{expiresIn:'15m'});
     res.status(200).json({accesstoken});
    }else{
          res.status(401);
@@ -70,7 +70,7 @@ const loginUser = asyncHandler(async(req,res) => {
 
 //desc current user 
 //@route Post /api/users/current
-//@access private
+//@access public
 
 const currentUser = asyncHandler(async(req,res) => {
     res.status(200).json(req.user);
